@@ -39,6 +39,12 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 .hidden-section {
   display: none !important;
 }
@@ -137,6 +143,7 @@ nav a:hover { color: var(--primary); }
   background-color: var(--bg-subtle);
   padding: 1rem;
   border-radius: 1rem;
+  text-align: justify;
 }
 
 /* --- New Styles for Regulations Cards --- */
@@ -460,11 +467,22 @@ footer { background: var(--primary); color: #94a3b8; padding: 60px 0 20px; margi
 .footer-bottom { text-align: center; border-top: 1px solid var(--primary-light); padding-top: 20px; font-size: 0.85rem; }
 .back-top { color: white; opacity: 0.7; }
 
+/* Accessibility Widget Theme Override */
+
+#uw-widget-custom-trigger {
+  background: var(--text-main) !important;
+  color: white !important;
+  border: none !important;
+}
+
 /* --- Mobile --- */
 .nav-toggle, .nav-toggle-label { display: none; }
 
 @media (max-width: 768px) {
-  .hero-content h2 { font-size: 2.2rem; }
+  html {
+    font-size: 90%;
+  }
+  .hero-content h2 { font-size: 2rem; }
   .grid-sidebar { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
   
@@ -473,10 +491,24 @@ footer { background: var(--primary); color: #94a3b8; padding: 60px 0 20px; margi
   .nav-toggle-label span::before, .nav-toggle-label span::after { content: ''; position: absolute; width: 100%; height: 2px; background: var(--primary); left: 0; }
   .nav-toggle-label span::before { bottom: 7px; } .nav-toggle-label span::after { top: 7px; }
 
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2000;
+  }
+
+  main {
+    padding-top: 90px;
+  }
   nav {
     position: absolute; top: 100%; left: 0; width: 100%;
     background: white; border-bottom: 1px solid var(--border);
     transform: scaleY(0); transform-origin: top; transition: 0.3s;
+  }
+  nav .skipTo {
+    display: none;
   }
   .nav-toggle:checked ~ nav { transform: scaleY(1); }
   nav ul { flex-direction: column; padding: 20px; align-items: flex-start; }
@@ -513,13 +545,19 @@ footer { background: var(--primary); color: #94a3b8; padding: 60px 0 20px; margi
   .table-wrapper td {
     border: none;
     border-bottom: 1px solid var(--bg-subtle);
+    font-size: 0.9rem;
+    line-height: 1.4;
     position: relative;
-    padding: 12px 16px;
-    padding-left: 50%; 
-    text-align: right; 
+    padding: 2px 4px;
+    text-align: left;
     display: flex;
-    justify-content: space-between; 
+    justify-content: flex-start;
     align-items: center;
+    gap: 12px;
+  }
+
+  .table-wrapper td::before {
+    font-size: 0.8rem;
   }
 
   .table-wrapper td:last-child {
@@ -527,14 +565,14 @@ footer { background: var(--primary); color: #94a3b8; padding: 60px 0 20px; margi
   }
 
   .table-wrapper td:nth-of-type(2)::before {
-    content: "Location";
+    content: "University: ";
     font-weight: 600;
     color: var(--text-light);
     font-size: 0.85rem;
   }
   
   .table-wrapper td:nth-of-type(3)::before {
-    content: "Status";
+    content: "Location: ";
     font-weight: 600;
     color: var(--text-light);
     font-size: 0.85rem;
@@ -556,5 +594,36 @@ footer { background: var(--primary); color: #94a3b8; padding: 60px 0 20px; margi
 
   footer{
     width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .org-chart {
+    gap: 24px;
+  }
+
+  .org-row {
+    flex-direction: column;   
+    gap: 20px;
+  }
+
+  .org-node {
+    min-width: auto;  
+    width: 100%;
+    max-width: 320px; 
+    padding: 12px 14px;
+    font-size: 0.9rem;
+  }
+
+  .org-node h4 {
+    font-size: 1rem;
+  }
+
+  .org-node p {
+    font-size: 0.9rem;
+  }
+
+  .org-node small {
+    font-size: 0.8rem;
   }
 }
