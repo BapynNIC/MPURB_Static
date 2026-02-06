@@ -39,6 +39,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.text-nowrap { white-space: nowrap; }
+
 h1, h2, h3, h4 { color: var(--primary); font-weight: 700; line-height: 1.2; }
 a { text-decoration: none; transition: 0.2s ease; }
 ul { list-style: none; }
@@ -62,10 +64,30 @@ header {
   top: 0;
   z-index: 1000;
   padding: 16px 0;
+  box-shadow: 0px 2px 4px rgba(15, 23, 42, 0.1);
 }
+
+#structure .structure-card{
+  box-shadow: 3px 4px 12px 2px rgba(199, 216, 255, 0.651);
+}
+
+#structure .card.structure-card:hover {box-shadow: 3px 4px 12px 2.5px rgba(199, 216, 255, 0.651); border-color: white; }
 
 .vision{
   font-style: italic;
+}
+
+.skipTo{
+  color: black;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 1em;
+  opacity: 0.8;
+}
+
+.skipTo:hover {
+  text-decoration: underline;
+  color: black;
 }
 
 .header-flex { display: flex; justify-content: space-between; align-items: center; }
@@ -87,6 +109,12 @@ header {
 nav ul { display: flex; gap: 24px; align-items: center; }
 nav a { color: var(--text-light); font-size: 0.9rem; font-weight: 500; }
 nav a:hover { color: var(--primary); }
+
+.about-content{
+  background-color: var(--bg-subtle);
+  padding: 1rem;
+  border-radius: 1rem;
+}
 
 /* --- New Styles for Regulations Cards --- */
 .doc-card {
@@ -131,7 +159,7 @@ nav a:hover { color: var(--primary); }
 }
 
 .btn-nav-log {
-  background: var(--accent);
+  background: var(--primary-light);
   color: white !important;
   padding: 8px 16px;
   border-radius: 6px;
@@ -200,6 +228,24 @@ nav a:hover { color: var(--primary); }
   transition: all 0.3s ease;
 }
 .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+
+#about {
+  background: 
+    url('../assets/icons/bootstrap-icons/bg3.jpeg') center/cover no-repeat;
+  min-height: 50vh;
+  box-shadow: 0px 7px 17px rgba(0,0,0,0.3);
+}
+
+#structure{
+  background: 
+    url('../assets/icons/bootstrap-icons/6113099.jpg') center/cover no-repeat;
+  min-height: 20vh;
+}
+
+#structure h3{
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
 
 /* --- About Modal --- */
 
@@ -340,12 +386,12 @@ tr:last-child td { border-bottom: none; }
 .badge.success { background: #dcfce7; color: #15803d; }
 
 /* Notifications */
-.notification-card { border-top: 4px solid var(--accent); padding: 0; }
+.notification-card { padding: 0; }
 .notif-header { padding: 20px; border-bottom: 1px solid var(--border); }
 .notif-header h3 { font-size: 1.1rem; margin: 0; }
 .notif-list li { padding: 16px 20px; border-bottom: 1px solid var(--border); transition: background 0.2s; }
 .notif-list li:hover { background: var(--bg-subtle); }
-.notif-list li:last-child { border: none; }
+.notif-list li:last-child { border: none; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; }
 .notif-list .date { font-size: 0.75rem; color: var(--text-light); display: block; margin-bottom: 4px; }
 .notif-list a { color: var(--text-main); font-weight: 500; font-size: 0.9rem; }
 .notif-list a:hover { color: var(--accent); }
