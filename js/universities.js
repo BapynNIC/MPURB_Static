@@ -66,7 +66,7 @@ function renderUniversities(list) {
     tr.appendChild(createCell(u.location));
 
     const status = document.createElement("td");
-    status.innerHTML = `<span class="badge success">Approved</span>`;
+    status.innerHTML = `<span class="badge success">Recognized</span>`;
 
     tr.appendChild(status);
 
