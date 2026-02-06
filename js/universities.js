@@ -58,21 +58,18 @@ function renderUniversities(list) {
   const tbody = document.getElementById("universities-body");
   tbody.innerHTML = "";
 
-  list.forEach(u => {
+  list.forEach((u, index) => {
 
     const tr = document.createElement("tr");
 
+    tr.appendChild(createCell(index + 1));
     tr.appendChild(createCell(u.name));
     tr.appendChild(createCell(u.location));
-
-    const status = document.createElement("td");
-    status.innerHTML = `<span class="badge success">Recognized</span>`;
-
-    tr.appendChild(status);
 
     tbody.appendChild(tr);
   });
 }
+
 
 
 async function loadUniversities() {
@@ -103,8 +100,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 top: offsetPosition,
                 behavior: "smooth"
             });
-            
-            // Close mobile menu if open
             const navToggle = document.getElementById("nav-toggle");
             if (navToggle) navToggle.checked = false;
         }
@@ -112,3 +107,25 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 document.addEventListener("DOMContentLoaded", loadUniversities);
+
+
+const openBtn = document.getElementById("openAboutModal");
+const closeBtn = document.getElementById("closeAboutModal");
+const modal = document.getElementById("aboutModal");
+
+openBtn.addEventListener("click", () => {
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+});
+
+closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+    document.body.style.overflow = "auto";
+});
+
+modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+});

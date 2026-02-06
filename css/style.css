@@ -64,6 +64,10 @@ header {
   padding: 16px 0;
 }
 
+.vision{
+  font-style: italic;
+}
+
 .header-flex { display: flex; justify-content: space-between; align-items: center; }
 
 .brand { display: flex; align-items: center; gap: 12px; }
@@ -197,6 +201,107 @@ nav a:hover { color: var(--primary); }
 }
 .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
 
+/* --- About Modal --- */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-box {
+  background: white;
+  width: 90%;
+  max-width: 800px;
+  max-height: 85vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  animation: modalFade 0.3s ease;
+}
+
+@keyframes modalFade {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* --- Vision & Mission Section --- */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.vm-card {
+  text-align: center;
+  padding: 32px 24px;
+}
+
+.vm-card h4 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+
+.vm-card p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.7;
+}
+
+
+.modal-header h3 {
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+.modal-close:hover {
+  color: var(--primary);
+}
+
+.modal-body {
+  padding: 24px;
+  line-height: 1.8;
+}
+
+.modal-body p {
+  margin-bottom: 16px;
+  text-align: justify;
+}
+
+.modal-list {
+  margin: 16px 0 24px 20px;
+}
+
+.modal-list li {
+  margin-bottom: 10px;
+  color: var(--text-light);
+}
+
+
 section {
   /* 2. STICKY HEADER OFFSET 
      This ensures the section title isn't hidden behind the 
@@ -221,12 +326,12 @@ section {
 .grid-sidebar { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: start; }
 
 .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-.status-indicator { font-size: 0.8rem; color: var(--text-light); background: var(--bg-subtle); padding: 4px 8px; border-radius: 4px; }
+.status-indicator { font-size: 0.8rem; color: var(--text-dark); background: var(--bg-subtle); padding: 4px 8px; border-radius: 4px; }
 
 /* Tables */
 .table-wrapper { padding: 0; overflow: hidden; }
 table { width: 100%; border-collapse: collapse; }
-th { background: var(--bg-subtle); color: var(--text-light); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; padding: 16px 24px; text-align: left; }
+th { background: var(--bg-subtle); color: var(--text-dark); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; padding: 16px 24px; text-align: left; }
 td { padding: 16px 24px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
 tr:last-child td { border-bottom: none; }
 .badge {
