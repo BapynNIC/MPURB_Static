@@ -84,48 +84,107 @@ async function loadUniversities() {
   }
 }
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        
-        if (targetSection) {
-            const headerOffset = 90; 
-            const elementPosition = targetSection.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: "smooth"
-            });
-            const navToggle = document.getElementById("nav-toggle");
-            if (navToggle) navToggle.checked = false;
-        }
-    });
-});
-
 document.addEventListener("DOMContentLoaded", loadUniversities);
 
+function handleRoute() {
 
-const openBtn = document.getElementById("openAboutModal");
-const closeBtn = document.getElementById("closeAboutModal");
-const modal = document.getElementById("aboutModal");
+  const body = document.body;
+  const sections = document.querySelectorAll("main > section");
 
-openBtn.addEventListener("click", () => {
-    modal.style.display = "flex";
-    document.body.style.overflow = "hidden";
-});
+  body.classList.remove("page-mode");
 
-closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-    document.body.style.overflow = "auto";
-});
+  sections.forEach(s => {
+    s.classList.remove("active-page");
+  });
 
-modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-        modal.style.display = "none";
-        document.body.style.overflow = "auto";
+  const aboutPage = document.getElementById("about-page");
+  if (aboutPage) {
+    aboutPage.classList.add("hidden-section");
+  }
+  const hash = window.location.hash;
+
+  if (hash === "#about-page") {
+    body.classList.add("page-mode");
+    if (aboutPage) {
+      aboutPage.classList.remove("hidden-section");
+      aboutPage.classList.add("active-page");
     }
+    window.scrollTo({ top: 0 });
+    return;
+  }
+  document.getElementById("about")?.classList.remove("hidden-section");
+}
+
+
+
+
+window.addEventListener("hashchange", handleRoute);
+window.addEventListener("load", handleRoute);
+
+
+document.addEventListener("click", function (e) {
+
+  const link = e.target.closest("a");
+  if (!link) return;
+
+  const href = link.getAttribute("href");
+  if (!href) return;
+
+  if (href.startsWith("#")) {
+
+    const target = document.querySelector(href);
+
+    if (target) {
+      e.preventDefault();
+
+      history.pushState(null, "", href);
+
+      handleRoute();
+      const headerOffset = 90;
+      const elementPosition = target.getBoundingClientRect().top;
+      const offsetPosition =
+        elementPosition + window.scrollY - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+
+      const navToggle = document.getElementById("nav-toggle");
+      if (navToggle) navToggle.checked = false;
+
+      return;
+    }
+  }
+
+
+// Alert for external links
+  if (
+    href.startsWith("http://") ||
+    href.startsWith("https://")
+  ) {
+
+    try {
+
+      const url = new URL(href);
+
+      if (url.origin !== window.location.origin) {
+
+        const confirmed = confirm(
+          "You are leaving the official website of MPURB.\n" +
+          "Do you want to continue?"
+        );
+
+        if (!confirmed) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+
+      }
+
+    } catch (err) {
+      e.preventDefault();
+    }
+  }
+
 });

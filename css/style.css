@@ -10,6 +10,7 @@
   --bg-subtle: #f1f5f9;
   
   --text-main: #1e293b;
+  --text-main-hover: #0f172a;
   --text-light: #64748b;
   
   --border: #e2e8f0;
@@ -38,6 +39,10 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
+.hidden-section {
+  display: none !important;
+}
+
 
 .text-nowrap { white-space: nowrap; }
 
@@ -77,17 +82,35 @@ header {
   font-style: italic;
 }
 
-.skipTo{
-  color: black;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 1em;
+.show-section {
+  display: block;
+}
+
+/* Page Mode (SPA View) */
+
+body.page-mode main > section {
+  display: none !important;
+}
+
+body.page-mode main > section.active-page {
+  display: block !important;
+  min-height: calc(100vh - 120px);
+  padding-top: 40px;
+}
+
+
+
+.text-nowrap.skipTo{
+  color: var(--primary-light);
+  padding: 2px 4px;
+  font-size: 0.7em;
   opacity: 0.8;
 }
 
-.skipTo:hover {
+.text-nowrap.skipTo:hover {
   text-decoration: underline;
   color: black;
+  transition: ease-in-out 0.5s;
 }
 
 .header-flex { display: flex; justify-content: space-between; align-items: center; }
@@ -121,7 +144,7 @@ nav a:hover { color: var(--primary); }
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  border-left: 4px solid var(--accent); /* Visual cue for documents */
+  border-left: 4px solid var(--text-main); /* Visual cue for documents */
 }
 
 .doc-icon {
@@ -148,7 +171,7 @@ nav a:hover { color: var(--primary); }
 }
 
 .text-link {
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--accent);
 }
@@ -165,7 +188,7 @@ nav a:hover { color: var(--primary); }
   border-radius: 6px;
   font-size: 0.85rem;
 }
-.btn-nav-log:hover { background: var(--accent-hover); }
+.btn-nav-log:hover { background: var(--text-main-hover); }
 
 /* --- Hero Section --- */
 .hero-section {
@@ -177,15 +200,15 @@ nav a:hover { color: var(--primary); }
 .icon {
   width: 24px;
   height: 24px;
-  /* fill: var(--accent); */
-  color: var(--accent);
+  /* fill: var(--text-main); */
+  color: var(--text-main);
 }
 
 .icon-small {
   width: 16px;
   height: 16px;
   margin-right: 8px;
-  fill: var(--accent);
+  fill: var(--text-main);
 }
 
 .hero-content { max-width: 700px; }
@@ -205,10 +228,10 @@ nav a:hover { color: var(--primary); }
 
 .hero-actions { display: flex; gap: 16px; }
 .btn-primary {
-  background: var(--accent); color: white;
+  background: var(--text-main); color: white;
   padding: 12px 24px; border-radius: 8px; font-weight: 600;
 }
-.btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.btn-primary:hover { background: var(--text-main-hover); transform: translateY(-1px); }
 .btn-secondary {
   background: white; color: var(--text-main); border: 1px solid var(--border);
   padding: 12px 24px; border-radius: 8px; font-weight: 600;
@@ -227,7 +250,7 @@ nav a:hover { color: var(--primary); }
   box-shadow: var(--shadow-sm);
   transition: all 0.3s ease;
 }
-.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--text-main); }
 
 #about {
   background: 
@@ -272,6 +295,34 @@ nav a:hover { color: var(--primary); }
   box-shadow: var(--shadow-lg);
   animation: modalFade 0.3s ease;
 }
+
+/* Organogram Styling */
+.org-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.org-node {
+  background: white;
+  padding: 20px 24px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  text-align: center;
+  min-width: 260px;
+  box-shadow: 3px 4px 12px 2px rgba(199, 216, 255, 0.651);
+}
+
+.org-node:hover { box-shadow: 3px 4px 12px 2.5px rgba(199, 216, 255, 0.651); border-color: white; }
+
+
+.org-row {
+  display: flex;
+  gap: 40px;
+  position: relative;
+}
+
 
 @keyframes modalFade {
   from { opacity: 0; transform: translateY(20px); }
@@ -349,9 +400,6 @@ nav a:hover { color: var(--primary); }
 
 
 section {
-  /* 2. STICKY HEADER OFFSET 
-     This ensures the section title isn't hidden behind the 
-     header when scrolling finishes. */
   scroll-margin-top: 100px;
 }
 
@@ -359,7 +407,6 @@ section {
 .section-header h3 { font-size: 2rem; margin-bottom: 8px; }
 .section-header p { color: var(--text-light); }
 
-/* Feature Icons */
 .icon-box {
   height: 48px; width: 48px;
   background: var(--bg-subtle);
@@ -368,8 +415,15 @@ section {
   font-size: 1.5rem; margin-bottom: 16px;
 }
 
-/* --- Sidebar Layout --- */
-.grid-sidebar { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: start; }
+.grid-sidebar {
+  display: flex;
+  justify-content: center;
+}
+.grid-sidebar > .main-col {
+  width: 100%;
+  max-width: 900px;
+}
+
 
 .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .status-indicator { font-size: 0.8rem; color: var(--text-dark); background: var(--bg-subtle); padding: 4px 8px; border-radius: 4px; }
@@ -394,7 +448,7 @@ tr:last-child td { border-bottom: none; }
 .notif-list li:last-child { border: none; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; }
 .notif-list .date { font-size: 0.75rem; color: var(--text-light); display: block; margin-bottom: 4px; }
 .notif-list a { color: var(--text-main); font-weight: 500; font-size: 0.9rem; }
-.notif-list a:hover { color: var(--accent); }
+.notif-list a:hover { color: var(--text-main); }
 .important-update { background: #fefce8; } /* Light yellow for important */
 
 /* --- Footer --- */
