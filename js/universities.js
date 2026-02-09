@@ -158,7 +158,6 @@ document.addEventListener("click", function (e) {
   }
 
 
-// Alert for external links
   if (
     href.startsWith("http://") ||
     href.startsWith("https://")
@@ -179,6 +178,9 @@ document.addEventListener("click", function (e) {
           e.preventDefault();
           e.stopPropagation();
         }
+
+        link.setAttribute("target", "_blank");
+        link.setAttribute("rel", "noopener noreferrer");
 
       }
 
