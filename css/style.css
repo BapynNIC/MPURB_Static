@@ -67,6 +67,12 @@ ul { list-style: none; }
   margin: 0 auto;
 }
 
+header .container {
+  max-width: 100%;
+  width: 100%;
+  padding: 0 24px;
+}
+
 .section-pad { padding: 80px 0; }
 .bg-light { background: var(--bg-white); }
 
@@ -79,13 +85,13 @@ header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  padding: 28px 0;
+  padding: 15px 0;
   box-shadow: 0px 2px 4px rgba(15, 23, 42, 0.1);
   isolation: isolate;
 }
 
 header .header-flex .brand img {
-  height: 54px;      /* Adjust as needed */
+  height: 64px;      /* Adjust as needed */
   width: auto;       /* Preserve aspect ratio */
   max-height: 72px;  /* Safety limit */
   object-fit: contain;
@@ -133,9 +139,9 @@ body.page-mode main > section.active-page {
   transition: ease-in-out 0.5s;
 }
 
-.header-flex { display: flex; justify-content: space-between; align-items: center; }
+.header-flex { display: flex; align-items: center; width: 100%;}
 
-.brand { display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 12px; margin-right: auto; }
 
 .logo-circle {
   height: 40px; width: 40px;
@@ -149,9 +155,15 @@ body.page-mode main > section.active-page {
 .brand-text h1 { font-size: 1.1rem; margin: 0; letter-spacing: -0.02em; text-align: left;}
 .brand-text p { font-size: 0.6rem; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.05em; text-align: left}
 
-nav ul { display: flex; gap: 24px; align-items: center; }
+nav { margin-left: auto; }
+nav ul { display: flex; gap: 24px; align-items: center; flex-wrap: nowrap;}
 nav a { color: var(--text-light); font-size: 0.9rem; font-weight: 500; }
 nav a:hover { color: var(--primary); }
+
+#about-page{
+  scroll-margin-top: 120px;
+  padding-top: 40px;
+}
 
 .about-content{
   background-color: var(--bg-subtle);
@@ -421,7 +433,7 @@ nav a:hover { color: var(--primary); }
 
 
 section {
-  scroll-margin-top: 100px;
+  scroll-margin-top: 120px;
 }
 
 .section-header { text-align: center; margin-bottom: 48px; }
